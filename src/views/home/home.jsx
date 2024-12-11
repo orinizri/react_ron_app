@@ -1,22 +1,22 @@
-import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import Input from "../../components/input/input";
 import "./home.css";
 
 function Home() {
-  const [path, setPath] = useState("");
   const { pending } = useFormStatus();
 
   function handleForm(e) {
     e.preventDefault();
     const filesList = e.target[0].files;
     console.log(filesList);
-    // TODO: Limit files size (discuss about absolute boundary with ron)
+    // TODO: Limit files size (discuss about absolute boundary with Ron)
+    // TODO: Check base64 file types are congruent
+    // TODO: Handle exceptions
 
     // It seems that I'm getting all the files without nested lists, I will need to differentiate between folders
     // by file.webkitRelativePath which holds a relative path of the selected folder (the root)
     
-    // Filter only relevant files 
+    // Filter only relevant files
     for (let file of filesList) {
       // const fileName = file.name;
       // const fileType = file.type;
