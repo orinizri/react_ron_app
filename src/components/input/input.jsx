@@ -2,10 +2,10 @@ import "./input.css";
 
 function Input({ label, inputAttributes }) {
   return (
-    <>
-      <label htmlFor={inputAttributes?.id || null}>{label}:</label>
+    <label htmlFor={inputAttributes?.id || null}>
+      {label}:
       <input {...inputAttributes} />
-    </>
+    </label>
   );
 }
 
