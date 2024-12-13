@@ -1,9 +1,10 @@
+import Button from "../button/button";
 import "./navigation_bar.css";
 
 function NavigationBar() {
   return (
     <nav>
-      <button>Home</button>
+      <Button content="Home" />
     </nav>
   );
 }

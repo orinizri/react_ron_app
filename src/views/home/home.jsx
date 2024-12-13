@@ -1,7 +1,9 @@
 import { useFormStatus } from "react-dom";
 import Input from "../../components/input/input";
-import "./home.css";
 import NavigationBar from "../../components/navbar/navigation_bar";
+import Form from "../../components/form/form";
+import "./home.css";
+import Button from "../../components/button/button";
 
 function Home() {
   const { pending } = useFormStatus();
@@ -30,21 +32,28 @@ function Home() {
   return (
     <>
       <NavigationBar />
-      <form onSubmit={handleForm}>
-        <Input
-          label="Upload root folder"
-          inputAttributes={{
-            id: "folder",
-            type: "file",
-            className: "Input",
-            webkitdirectory: "true",
-            multiple: true,
-          }}
-        />
-        <button type="submit" disabled={pending}>
-          {pending ? "Submitting..." : "Submit"}
-        </button>
-      </form>
+      <Form
+        onSubmit={handleForm}
+        controls={
+          <>
+            <Input
+              label="Upload root folder"
+              inputAttributes={{
+                id: "folder",
+                type: "file",
+                className: "Input",
+                webkitdirectory: "true",
+                multiple: true,
+              }}
+            />
+            <Button
+              type="submit"
+              disabled={pending}
+              content={pending ? "Submitting..." : "Submit"}
+            />
+          </>
+        }
+      />
     </>
   );
 }
