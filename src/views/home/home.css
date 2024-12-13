@@ -12,3 +12,15 @@ nav > button {
     font-weight: 700;
     font-size: 1.2rem;
 }
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+p {
+    padding: 0.2rem 2rem;
+    max-width: 70rem;
+}
