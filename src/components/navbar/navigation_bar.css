@@ -17,13 +17,15 @@ menu {
 }
 
 menu > a {
-    padding: 5px;
+    padding: 0.3rem 0.8rem;
     text-decoration: none;
     color: black;
     font-weight: 700;
     border-bottom: 2px solid transparent;
+    letter-spacing: 0.2rem;
 }
 
 menu > a.active {
     border-bottom: 2px solid purple;
+    transition: border-bottom 0.5s ease-in;
 }
