@@ -1,15 +1,11 @@
-import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import Input from "../../components/input/input";
-import NavigationBar from "../../components/navbar/navigation_bar";
 import Form from "../../components/form/form";
 import Button from "../../components/button/button";
 import "./home.css";
-import About from "../about/about";
 
 function Home() {
   const { pending } = useFormStatus();
-  const [page, setPage] = useState("home");
 
   function handleForm(e) {
     e.preventDefault();
@@ -34,32 +30,28 @@ function Home() {
 
   return (
     <>
-      <NavigationBar setPage={setPage} />
-      {page === "about" && <About />}
-      {page === "home" && (
-        <Form
-          onSubmit={handleForm}
-          controls={
-            <>
-              <Input
-                label="Upload root folder"
-                inputAttributes={{
-                  id: "folder",
-                  type: "file",
-                  className: "Input",
-                  webkitdirectory: "true",
-                  multiple: true,
-                }}
-              />
-              <Button
-                type="submit"
-                disabled={pending}
-                content={pending ? "Submitting..." : "Submit"}
-              />
-            </>
-          }
-        />
-      )}
+      <Form
+        onSubmit={handleForm}
+        controls={
+          <>
+            <Input
+              label="Upload root folder"
+              inputAttributes={{
+                id: "folder",
+                type: "file",
+                className: "Input",
+                webkitdirectory: "true",
+                multiple: true,
+              }}
+            />
+            <Button
+              type="submit"
+              disabled={pending}
+              content={pending ? "Submitting..." : "Submit"}
+            />
+          </>
+        }
+      />
     </>
   );
 }
