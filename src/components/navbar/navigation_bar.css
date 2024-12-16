@@ -6,7 +6,7 @@ nav {
 
 nav > img {
     box-sizing: content-box;
-    width: fit-content;
+    width: 30%;
 }
 
 menu {
@@ -19,7 +19,7 @@ menu {
 menu > a {
     padding: 0.3rem 0.8rem;
     text-decoration: none;
-    color: black;
+    color: #232740;
     font-weight: 700;
     border-bottom: 2px solid transparent;
     letter-spacing: 0.2rem;

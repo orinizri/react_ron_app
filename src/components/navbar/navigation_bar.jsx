@@ -1,7 +1,7 @@
 import Button from "../button/button";
 import { NavLink } from "react-router";
 import "./navigation_bar.css";
-import logo from "../../assets/RON2.png";
+import logo from "../../assets/ron_v2.png";
 
 function NavigationBar() {
   return (

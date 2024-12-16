@@ -5,12 +5,8 @@ form {
     align-items: center;
 }
 
-nav > button {
-    gap: 0.1rem;
-    border: none;
-    background-color: #ffffff;
-    font-weight: 700;
-    font-size: 1.2rem;
+form > button[type=submit] {
+    margin-top: 1.5rem;
 }
 
 section {
