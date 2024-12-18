@@ -3,16 +3,23 @@ import Input from "../../components/input/input";
 import Form from "../../components/form/form";
 import Button from "../../components/button/button";
 import "./home.css";
-import { FILE_SIZE_LIMIT, UPLOAD_FILES_VALID_TYPES } from "../../utils/constants";
+import {
+  FILE_SIZE_LIMIT,
+  UPLOAD_FILES_VALID_TYPES,
+} from "../../utils/constants";
+import axiosInstance from "../../api/axiosInstance";
+import { useState } from "react";
 
 function Home() {
   const { pending } = useFormStatus();
+  const [uploadStatus, setUploadStatus] = useState(null);
 
   function handleForm(e) {
     try {
       e.preventDefault();
       const filesList = Array.from(e.target[0].files);
       console.log(filesList);
+      console.log(typeof filesList);
       const errors = [];
       if (!filesList.length) return;
       // Filter only relevant files
@@ -26,25 +33,39 @@ function Home() {
           return false; // Exclude this file
         }
         // Filter files not word/excel/pdf -
-        if (UPLOAD_FILES_VALID_TYPES.includes(file.type)) {
+        if (!UPLOAD_FILES_VALID_TYPES.includes(file.type)) {
           errors.push({
             fileName: file.name,
-            error: `File is above 10MB (${file.size} bytes)`,
+            error: `Invalid file type (${file.type})`,
           });
           return false;
         }
         return true; // Include valid files
       });
+      // Got valid files
+      const formData = new FormData();
+      for (let i = 0; i < validFiles.length; i++) {
+        formData.append("files", validFiles[i]);
+      }
+
+      // Send validFiles to backend for analysis and aggregation
+      // (summing the content of the folder and the progress for each customer)
+      axiosInstance
+        .post("/files/upload", formData)
+        .then((response) => {
+          const uploadedFilesNumber = response.data.files.length || 0;
+          setUploadStatus(`${uploadedFilesNumber} Files uploaded successfully!`);
+        })
+        .catch((error) => {
+          setUploadStatus(
+            `Error uploading files: ${error.response.data.message}`
+          );
+        });
 
       if (errors.length) {
-        // Show errors (floating)
-        console.log("errors:", errors)
+        // Return errors (make them float and disappear)
+        console.log("errors:", errors);
       }
-      // TODO: Send validFiles to backend for analysis and aggregation
-      // (summing the content of the folder and the progress for each customer)
-
-      // It seems that I'm getting all the files without nested lists, I will need to differentiate between folders
-      // by file.webkitRelativePath which holds a relative path of the selected folder (the root)
     } catch (error) {
       console.error(error);
     }
@@ -71,6 +92,7 @@ function Home() {
               disabled={pending}
               content={pending ? "Submitting..." : "Submit"}
             />
+            {uploadStatus}
           </>
         }
       />
