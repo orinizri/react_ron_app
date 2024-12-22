@@ -63,7 +63,7 @@ function Home() {
         });
 
       if (errors.length) {
-        // Return errors (make them float and disappear)
+        // TODO: Return errors (make them float and disappear)
         console.log("errors:", errors);
       }
     } catch (error) {
