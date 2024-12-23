@@ -42,11 +42,12 @@ function Home() {
         }
         return true; // Include valid files
       });
-      // Got valid files
+      // Add valid file to form data
       const formData = new FormData();
-      for (let i = 0; i < validFiles.length; i++) {
-        formData.append("files", validFiles[i]);
-      }
+      validFiles.forEach(file => {
+        formData.append("files", file);
+        formData.append('lastModified', file.lastModified);
+      });
 
       // Send validFiles to backend for analysis and aggregation
       // (summing the content of the folder and the progress for each customer)
@@ -57,6 +58,7 @@ function Home() {
           setUploadStatus(`${uploadedFilesNumber} Files uploaded successfully!`);
         })
         .catch((error) => {
+          console.error(error.message);
           setUploadStatus(
             `Error uploading files: ${error.response.data.message}`
           );
